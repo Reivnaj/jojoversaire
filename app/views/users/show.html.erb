@@ -2,9 +2,9 @@
 	<div class="card-header">
 
     <%if @user.avatar.attached?%>
-      <%= image_tag @user.avatar, alt: 'avatar' %>
+      <%= image_tag @user.avatar, :size => "180x150", alt: 'avatar' %>
     <%else%>
-      <%= image_tag asset_path('avatar.png'), alt: 'avatar' %>
+      <%= image_tag asset_path('avatar.png'), :size => "180x150", alt: 'avatar' %>
     <%end%>
     <h3>Changer d'avatar ?</h3>
     <%= form_tag user_avatar_index_path(@user), multipart: true do %>

@@ -2,7 +2,7 @@
       <div class="col-md-7">
         <a href="#">
         	<%if event.event_picture.attached?%>
-          <%= image_tag event.event_picture, alt: 'event picture' %>
+          <%= image_tag event.event_picture, :size => "400x400", alt: 'event picture' %>
           <%else%>
           <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
           <%end%>
@@ -13,7 +13,7 @@
         <p><%=event.description %></p>
         <%= link_to 'En savoir plus', event_path(event), { :class=>"btn btn-primary" } %>
           <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
+        
       </div>
     </div>
     <hr>

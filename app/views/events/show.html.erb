@@ -2,42 +2,33 @@
 	<div class="card mt-3">
 		<div class="card-header">
 			<h4 class="card-title"> <%= @event.title %></h4>
-		  <h6 class="card-subtitle mb-2 text-muted"> <%= @event.users.count %> participants </h6>
+
 		</div>
+    <div class="card-body">
+      <%if @event.event_picture.attached?%>
+        <%= image_tag @event.event_picture, :size => "300", alt: 'event picture' %>
+      <%else%>
+        <p>=== Il n'y a pas encore d'image pour afficher Joris ===</p>
+      <%end%>
+      <h6>Changer d'image ?</h6>
+      <%= form_tag event_event_picture_index_path(@event), multipart: true do %>
+        <%= file_field_tag :event_picture %>
+        <%= submit_tag "mettre à jour" %>
+      <% end %>
+    </div>
 		<div class="card-body">
 			<p class="card-text"><strong>Description :</strong><br><%= @event.description %></p> <br>
-		  <p class="card-text"><strong>Débute à :</strong> <br><%= @event.start_date %></p> <br>
-		  <p class="card-text"><strong>Se termine à :</strong><br><%= @event.end_date %></p> <br>
-		  <p class="card-text"><strong>Lieu :</strong><br><%= @event.location %></p> <br>
-		<p class="card-text"><strong>Prix :</strong><br><%= @event.price %> €</p>
+
 
 		</div>
 		<div class="card-footer d-flex justify-content-between">
-		  <p class="card-text"><strong>Créateur de l'évènement :</strong> <%= @event.admin.email %></p>
+		  <p class="card-text"><strong>Le mail de la balance est :</strong> <%= @event.admin.email %></p>
 		</div>
 	</div>
 
 
 
-  <%if @event.event_picture.attached?%>
-    <%= image_tag @event.event_picture, alt: 'event picture' %>
-  <%else%>
-    <p>=== Il n'y a pas encore d'image pour l'évènement ===</p>
-  <%end%>
-  <h3>Changer d'avatar ?</h3>
-  <%= form_tag event_event_picture_index_path(@event), multipart: true do %>
-    <%= file_field_tag :event_picture %>
-    <%= submit_tag "mettre à jour" %>
-  <% end %>
 
 
-
-	<% if user_signed_in? && Attendance.where(event: @event,user: current_user).empty? && current_user != @event.admin %>
-		<%= link_to "Participer à l'évènement", new_event_attendance_path(@event), class: 'btn btn-primary btn-lg btn-block mt-5' %>
-	<% end %>
-
-	<% if current_user == @event.admin %>
-		<%= link_to "Mon espace évènement", event_attendances_path(@event), class: 'btn btn-primary btn-lg btn-block mt-5' %>
-	<% end %>
 
 </div>
